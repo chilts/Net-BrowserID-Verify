@@ -6,6 +6,8 @@ use warnings;
 use Test::More;
 use Net::BrowserID::Verify qw(verifyRemotely);
 
+diag( "Testing exported functions are exported" );
+
 # check we can see verifyRemotely
 can_ok(__PACKAGE__, 'verifyRemotely');
 
