@@ -37,16 +37,16 @@ sub verifyRemotely {
     my $url = $opts->{url} || 'https://verifier.login.persona.org/verify';
     my $proxy = $opts->{proxy};
 
-    my $data;
-
     if ( $proxy ) {
-        $ua->proxy('https' => $proxy);
+        $ua->proxy('http' => $proxy);
         print "done proxy $proxy\n";
     }
 
     # set custom HTTP request header fields
     my $req = POST $url, [ audience => $audience, assertion => $assertion ];
     my $resp = $ua->request($req);
+
+    my $data;
 
     if ($resp->is_success) {
         my $message = $resp->decoded_content;
