@@ -11,7 +11,9 @@ diag( "Testing exported functions are exported" );
 # check we can see verifyRemotely
 can_ok(__PACKAGE__, 'verifyRemotely');
 
-# ToDo: when we add local verification
-# can_ok(__PACKAGE__, 'verifyLocally');
+# when we add local verification
+#TODO: {
+#    can_ok(__PACKAGE__, 'verifyLocally');
+#}
 
 done_testing();
