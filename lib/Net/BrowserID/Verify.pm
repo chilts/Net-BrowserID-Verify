@@ -21,9 +21,13 @@ $VERSION = '0.1';
 
 # now, set up some vars we can use in the rest of the file
 my $ua = LWP::UserAgent->new();
+
+# always check the SSL certs
+$ua->ssl_opts( verify_hostname => 1 );
+
 my $json = JSON::Any->new;
 
-# Call this like:
+# Call this as follows:
 #
 # my $data = verifyRemotely($assertion, $audience, { ... });
 #
@@ -34,6 +38,11 @@ sub verifyRemotely {
     my $proxy = $opts->{proxy};
 
     my $data;
+
+    if ( $proxy ) {
+        $ua->proxy('https' => $proxy);
+        print "done proxy $proxy\n";
+    }
 
     # set custom HTTP request header fields
     my $req = POST $url, [ audience => $audience, assertion => $assertion ];
