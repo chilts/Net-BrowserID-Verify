@@ -35,12 +35,6 @@ sub verifyRemotely {
     my ($assertion, $audience, $opts) = @_;
 
     my $url = $opts->{url} || 'https://verifier.login.persona.org/verify';
-    my $proxy = $opts->{proxy};
-
-    if ( $proxy ) {
-        $ua->proxy('http' => $proxy);
-        print "done proxy $proxy\n";
-    }
 
     # set custom HTTP request header fields
     my $req = POST $url, [ audience => $audience, assertion => $assertion ];
