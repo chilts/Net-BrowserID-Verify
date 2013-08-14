@@ -1,5 +1,7 @@
 Revision history for Net::BrowserID::Verify.
 
 {{$NEXT}}
+
+0.001     2013-08-14 17:56:55 Pacific/Auckland
     [IMPROVEMENTS]
     - initial release
