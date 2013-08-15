@@ -12,6 +12,6 @@ my $data1 = verifyRemotely('assertion', 'audience', {
     url => 'https://tv.eurosport.com/',
 });
 is($data1->{status}, q{failure}, q{The verification failed});
-is($data1->{reason}, q{Can't connect to tv.eurosport.com:443 (certificate verify failed)}, q{SSL cert couldn't be verified});
+ok($data1->{reason} =~ m{Can't\sconnect}xms, q{SSL cert couldn't be verified});
 
 done_testing();
