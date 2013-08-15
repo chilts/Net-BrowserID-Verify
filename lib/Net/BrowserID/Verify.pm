@@ -89,9 +89,48 @@ Net::BrowserID::Verify - Verify BrowserID assertions.
 
   my $data = $verifier->verify('assertion');
 
-=head1 CHECK DATA
+=head1 EXPORTS
 
-Once you have $data from the verifier, you can then check if the status was okay.
+The following functions can be exported from the C<Net::BrowserID::Verify> module.
+No functions are exported by default.
+
+=head2 verify_remotely(assertion, audience, opts)
+
+Returns the result of either a verified assertion, a failed assertion or a failed
+request. See below for which fields are contained in the returned data.
+
+The following params are required:
+
+=over 4
+
+=item assertion
+
+This is the assertion you receive in the browser from the C<onlogin> callback which
+you should post to your server for verification. It is an opaque value which you
+should not change.
+
+=item audience
+
+This is your website, essentially C<http://example.com>. This is required by
+the verifier to make sure the assertion is for your site.
+
+=back
+
+The following names options can be passed as an opts hash:
+
+=over 4
+
+=item url
+
+This is the URL that you would prefer to use when using a remote verifier. It has
+the default 'https://verifier.login.persona.org/verify'.
+
+=back
+
+=head1 RETURNED DATA
+
+Once you have $data from the verifier function of your choosing, you can then
+check if the status was okay.
 
   if ( $data->{status} eq 'okay' ) {
       # read $data->{email} to set up/login your user
@@ -102,47 +141,47 @@ Once you have $data from the verifier, you can then check if the status was okay
       print $data->{reason};
   }
 
-=head1 DESCRIPTION
+=head2 Fields
 
 The assertion format you receive when using Persona/BrowserID needs to be
 sent from your browser to the server and verified there. This library
 helps you verify that the assertion is correct.
 
-The data returned by C<verify_emotely()>, (eventually) C<verify_locally()> or
+The data returned by C<verify_remotely()>, (eventually) C<verify_locally()> or
 C<$verifier-E<gt>verify()> contains the following fields:
 
 =over 4
 
-=item * status
+=item status
 
 The status of the verification. Either 'okay' or 'failure'.
 
-=item * email
+=item email
 
 The email address which has been verified.
 
 Provided only when status is 'okay'.
 
-=item * issuer
+=item issuer
 
 The issuer/identity provider, which should be either the domain of the
 email address being verified, or the fallback IdP.
 
 Provided only when status is 'okay'.
 
-=item * expires
+=item expires
 
 The expiry (in ms from epoch). e.g. 1354217396705.
 
 Provided only when status is 'okay'.
 
-=item * audience
+=item audience
 
 The audience you passed to the verifier.
 
 Provided only when status is 'okay'.
 
-=item * reason
+=item reason
 
 Gives the reason why something went wrong.
 
