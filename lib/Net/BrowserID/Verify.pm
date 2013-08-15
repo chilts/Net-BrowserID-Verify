@@ -13,7 +13,7 @@ use LWP::UserAgent;
 use JSON::Any;
 use HTTP::Request::Common qw(POST);
 
-our @EXPORT_OK = qw(verifyRemotely);
+our @EXPORT_OK = qw(verify_remotely);
 my $REMOTE_VERIFIER = 'https://verifier.login.persona.org/verify';
 
 my $json = JSON::Any->new;
@@ -52,17 +52,7 @@ sub verify {
 
 }
 
-# now, set up some vars we can use in the rest of the file
-# my $ua = LWP::UserAgent->new();
-
-# always check the SSL certs
-# $ua->ssl_opts( verify_hostname => 1 );
-
-# Call this as follows:
-#
-# my $data = verifyRemotely($assertion, $audience, { ... });
-#
-sub verifyRemotely {
+sub verify_remotely {
     my ($assertion, $audience, $opts) = @_;
 
     my $verifier = Net::BrowserID::Verify->new({
@@ -87,8 +77,8 @@ Net::BrowserID::Verify - Verify BrowserID assertions.
 =head1 SYNOPSIS
 
   # Procedural API
-  use Net::BrowserID::Verify qw(verifyRemotely);
-  my $data = verifyRemotely('assertion', 'audience');
+  use Net::BrowserID::Verify qw(verify_remotely);
+  my $data = verify_remotely('assertion', 'audience');
 
   # OO API
   use Net::BrowserID::Verify;
@@ -118,7 +108,7 @@ The assertion format you receive when using Persona/BrowserID needs to be
 sent from your browser to the server and verified there. This library
 helps you verify that the assertion is correct.
 
-The data returned by C<verifyRemotely()>, C<verifyLocally()> or
+The data returned by C<verify_emotely()>, (eventually) C<verify_locally()> or
 C<$verifier-E<gt>verify()> contains the following fields:
 
 =over 4

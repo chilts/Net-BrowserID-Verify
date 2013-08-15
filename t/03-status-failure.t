@@ -4,10 +4,10 @@ use strict;
 use warnings;
 
 use Test::More;
-use Net::BrowserID::Verify qw(verifyRemotely);
+use Net::BrowserID::Verify qw(verify_remotely);
 
 diag( "Testing a simple failure case with the hosted remote verifier (procedure)" );
-my $data1 = verifyRemotely('assertion', 'audience');
+my $data1 = verify_remotely('assertion', 'audience');
 is($data1->{status}, 'failure', 'The verification failed');
 is($data1->{reason}, 'no certificates provided', "Didn't provide a certificate");
 
