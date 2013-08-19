@@ -9,6 +9,7 @@ use Mouse; # use strict/warnings
 use Carp;
 use Exporter qw(import);
 
+use LWP::Protocol::https;
 use LWP::UserAgent;
 use JSON::Any;
 use HTTP::Request::Common qw(POST);
